@@ -38,6 +38,7 @@
     },
 
     hasAnyRooksConflicts: function() {
+      console.log(this);
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
     },
 
@@ -62,14 +63,14 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
     \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
     |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
 
- */
+    */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -79,11 +80,22 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
+      var counter = 0;
+      for (var i = 0; i < makeEmptyMatrix[rowIndex].length; i++) {
+        if (makeEmptyMatrix[rowIndex][i] === 1) {
+          counter++;
+          if (counter > 1) {
+            return true;
+          }
+        }
+      }
+      console.log('rowIndex:', rowIndex, 'makeEmptyMatrix', makeEmptyMatrix);
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+
       return false; // fixme
     },
 

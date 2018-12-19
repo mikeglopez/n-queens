@@ -131,8 +131,6 @@
       return false; // fixme
     },
 
-
-
     // Major Diagonals - go from top-left to bottom-right \
     // --------------------------------------------------------------
     //
@@ -161,8 +159,6 @@
       }
       return false; // fixme
     },
-
-
 
     // Minor Diagonals - go from top-right to bottom-left /
     // --------------------------------------------------------------

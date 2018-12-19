@@ -38,7 +38,7 @@
     },
 
     hasAnyRooksConflicts: function() {
-      console.log(this);
+      console.log('this', this);
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
     },
 
@@ -81,21 +81,24 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       var counter = 0;
-      for (var i = 0; i < makeEmptyMatrix[rowIndex].length; i++) {
-        if (makeEmptyMatrix[rowIndex][i] === 1) {
+      for (var i = 0; i < rowIndex.length; i++) {
+        if (rowIndex[i] === 1) {
           counter++;
           if (counter > 1) {
             return true;
           }
         }
       }
-      console.log('rowIndex:', rowIndex, 'makeEmptyMatrix', makeEmptyMatrix);
       return false; // fixme
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-
+      for (var i = 0; i < this.rows().length; i++) {
+        if (this.hasRowConflictAt(this.rows()[i])) {
+          return true;
+        }
+      }
       return false; // fixme
     },
 

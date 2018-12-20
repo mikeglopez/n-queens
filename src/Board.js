@@ -140,49 +140,15 @@
       var index = majorDiagonalColumnIndexAtFirstRow;
       var counter = 0;
       for (var i = 0; i < arr.length; i++) { // for each row
-        console.log('row:', i);
-        console.log('column:', index);
         if (arr[i][index] === 1) {
           counter++;
-          // index++;
           if (counter > 1) {
             return true;
           }
         }
-        // if (counter > 0) {
         index++;
-        // }
       }
       return false;
-
-
-
-      // var arr = [
-      //   [0, 0, 0, 0],
-      //   [1, 0, 0, 0],
-      //   [0, 1, 1, 0],
-      //   [0, 0, 0, 1]
-      //  ]
-
-      // var funk = function(arr, column) { // col === 2
-      //   var count = 0;
-      //   var col = column;
-
-      //   for (var i = 0; i < arr.length; i++) {
-      //     if (arr[i][col] === 1) {
-      //       count++;
-      //       col++;
-      //     }
-      //   }
-      //   if (count > 1) {
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // }
-
-      // funk(this.rows(), majorDiagonalColumnIndexAtFirstRow);
-
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -204,26 +170,28 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
+      var arr = this.rows();
       var index = minorDiagonalColumnIndexAtFirstRow;
       var counter = 0;
-      for (var i = this.rows().length - 1; i >= 0; i--) {
-        if (this.rows()[i][index] === 1) {
+      for (var i = 0; i < arr.length; i++) { // for each row
+        if (arr[i][index] === 1) {
           counter++;
-          index--;
           if (counter > 1) {
             return true;
           }
         }
-        if (counter > 0) {
-          index--;
-        }
+        index--;
       }
       return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      for (var i = this.rows().length - 1; i >= 0; i--) { //this.rows().length ==== this.columns().length
+      var arr = this.rows();
+      for (var i = arr.length; i >= 0; i--) { //this.rows().length === this.columns().length
+        if (this.hasMinorDiagonalConflictAt(i + arr.length)) {
+          return true;
+        }
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
@@ -232,7 +200,6 @@
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
-
 
   });
 

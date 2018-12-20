@@ -136,24 +136,63 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
+      var arr = this.rows();
       var index = majorDiagonalColumnIndexAtFirstRow;
       var counter = 0;
-      for (var i = 0; i < this.rows().length; i++) {
-        if (this.rows()[i][index] === 1) {
+      for (var i = 0; i < arr.length; i++) { // for each row
+        console.log('row:', i);
+        console.log('column:', index);
+        if (arr[i][index] === 1) {
           counter++;
+          // index++;
           if (counter > 1) {
             return true;
           }
         }
+        // if (counter > 0) {
         index++;
+        // }
       }
       return false;
+
+
+
+      // var arr = [
+      //   [0, 0, 0, 0],
+      //   [1, 0, 0, 0],
+      //   [0, 1, 1, 0],
+      //   [0, 0, 0, 1]
+      //  ]
+
+      // var funk = function(arr, column) { // col === 2
+      //   var count = 0;
+      //   var col = column;
+
+      //   for (var i = 0; i < arr.length; i++) {
+      //     if (arr[i][col] === 1) {
+      //       count++;
+      //       col++;
+      //     }
+      //   }
+      //   if (count > 1) {
+      //     return true;
+      //   } else {
+      //     return false;
+      //   }
+      // }
+
+      // funk(this.rows(), majorDiagonalColumnIndexAtFirstRow);
+
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      for (var i = 0; i < this.rows().length; i++) { //this.rows().length ==== this.columns().length
+      var arr = this.rows();
+      for (var i = 0; i < arr.length; i++) { //this.rows().length ==== this.columns().length
         if (this.hasMajorDiagonalConflictAt(i)) {
+          return true;
+        }
+        if (this.hasMajorDiagonalConflictAt(-i)) {
           return true;
         }
       }
@@ -170,11 +209,14 @@
       for (var i = this.rows().length - 1; i >= 0; i--) {
         if (this.rows()[i][index] === 1) {
           counter++;
+          index--;
           if (counter > 1) {
             return true;
           }
         }
-        index--;
+        if (counter > 0) {
+          index--;
+        }
       }
       return false;
     },

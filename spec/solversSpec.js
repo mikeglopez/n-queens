@@ -4,9 +4,9 @@ describe('solvers', function() {
   describe('findNRooksSolution()', function() {
 
     it('finds a valid solution for n of 1-8', function() {
-      _.range(1, 9).map(function(n) {
-        var solutionBoard = new Board(findNRooksSolution(n));
-        var numPieces = _.reduce(solutionBoard.rows(), function(memo, row) {
+      _.range(1, 9).map(function(n) { // [1, 2, 3, 4, 5, 6, 7, 8].map(FUNCTION BELOW)
+        var solutionBoard = new Board(findNRooksSolution(n)); // create a new Board using the result of findRooksSolution(n)
+        var numPieces = _.reduce(solutionBoard.rows(), function(memo, row) { // total num of pieces on the whole board
           return memo + _.reduce(row, function(memo, col) {
             return memo + col;
           }, 0);
@@ -23,7 +23,7 @@ describe('solvers', function() {
   describe('countNRooksSolutions()', function() {
 
     it('finds the number of valid solutions for n of 1-8', function() {
-      _.range(1, 9).map(function(n) {
+      _.range(1, 9).map(function(n) { // [1, 2, 3, 4, 5, 6, 7, 8].map(FUNCTION BELOW)
         var solutionCount = countNRooksSolutions(n);
         var expectedSolutionCount = [1, 1, 2, 6, 24, 120, 720, 5040, 40320][n];
 

@@ -38,7 +38,6 @@
     },
 
     hasAnyRooksConflicts: function() {
-      console.log('this', this);
       return this.hasAnyRowConflicts() || this.hasAnyColConflicts();
     },
 

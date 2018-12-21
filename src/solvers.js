@@ -11,20 +11,51 @@
 // take a look at solversSpec.js to see what the tests are expecting
 
 
+// [
+//   [0, 1, 0, 0],
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0],
+//   [0, 0, 0, 0]
+// ]
+
+
 // return a matrix (an array of arrays) representing a single nxn chessboard, with n rooks placed such that none of them can attack each other
-
-
-
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
+  var board = new Board({n: n});
+  var solution = board.rows(); // board array
 
+  for (var row = 0; row < solution.length; row++) {
+    for (var col = 0; col < solution[row].length; col++) {
+      board.togglePiece(row, col);
+      if (board.hasAnyRooksConflicts()) {
+        board.togglePiece(row, col);
+      }
+    }
+  }
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = undefined; //fixme
+  // var board = new Board({n: n});
+  // var boardArr = board.rows();
+  var solutionCount = 0; //fixme
+
+  var board = new Board(findNRooksSolution(n));
+
+
+  // trying to see if we can create a unique board instance for each solution
+  // maybe try rewriting code from above with modifications
+  console.log('board:', board);
+  // for (var row = 0; row < boardArr.length; row++) { // iterating each row
+  //   for (var col = 0; col < boardArr[row].length; col++) { // iterating through every single element of the board
+  //     board.togglePiece(row, col);
+  //     if (board.hasAnyRooksConflicts()) {
+  //       board.togglePiece(row, col);
+  //     }
+  //   }
+  // }
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
@@ -45,3 +76,29 @@ window.countNQueensSolutions = function(n) {
   console.log('Number of solutions for ' + n + ' queens:', solutionCount);
   return solutionCount;
 };
+
+
+/*
+
+Don't reinvent wheel where you don't have to. Use the Board constructor you build out in src/Board.js in your code.
+You can also access it within the Chrome console easily after opening BoardViewer.html
+
+Create new board instances that have access to all the helper methods you write in src/Board.js
+example: var board = new Board({n:5})
+
+Rather than setting or getting object properties directly with plain JavaScript, Backbone provides the get and set methods.
+Play with the getters and setters that Backbone provides
+example: board.get(3) will return the 3rd row of the instance board (assuming that instance exists)
+Rows run horizontally, left to right
+
+Columns run vertically, top to bottom
+Major Diagonals run diagonally, top-left to bottom-right
+Minor Diagonals run diagonally, top-right to bottom-left
+
+In chess the rook piece moves and attacks horizontally (along rows) or vertically (along columns),
+through any number of unoccupied squares
+
+In chess the queen piece moves and attacks horizontally (along rows), vertically (along columns),
+or diagonally (along major and minor diagonals), through any number of unoccupied squares
+
+*/

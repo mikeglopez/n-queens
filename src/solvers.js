@@ -12,7 +12,7 @@
 
 
 // [
-//   [0, 1, 0, 0],
+//   [0, 0, 0, 0],
 //   [0, 0, 0, 0],
 //   [0, 0, 0, 0],
 //   [0, 0, 0, 0]
@@ -23,7 +23,7 @@
 window.findNRooksSolution = function(n) {
   var board = new Board({n: n});
   var solution = board.rows(); // board array
-
+  console.log(board);
   for (var row = 0; row < solution.length; row++) {
     for (var col = 0; col < solution[row].length; col++) {
       board.togglePiece(row, col);
@@ -38,24 +38,56 @@ window.findNRooksSolution = function(n) {
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  // var board = new Board({n: n});
-  // var boardArr = board.rows();
+  var board = new Board({n: n});
+  var solution = board.rows(); // board array
   var solutionCount = 0; //fixme
 
-  var board = new Board(findNRooksSolution(n));
+  var rowNum = 0;
 
-
-  // trying to see if we can create a unique board instance for each solution
-  // maybe try rewriting code from above with modifications
-  console.log('board:', board);
-  // for (var row = 0; row < boardArr.length; row++) { // iterating each row
-  //   for (var col = 0; col < boardArr[row].length; col++) { // iterating through every single element of the board
-  //     board.togglePiece(row, col);
-  //     if (board.hasAnyRooksConflicts()) {
-  //       board.togglePiece(row, col);
+  // var checkBoard = function(currBoard, rows) {
+  //   if (num > 0) {
+  //   // iterating through each board element
+  //     for (var row = 0; row < currBoard.length; row++) {
+  //       for (var col = 0; col < currBoard[row].length; col++) {
+  //         // if the current element is 0 (toggled off)
+  //         if (currBoard[row][col] === 0) {
+  //           // toggle it on
+  //           board.togglePiece(row, col);
+  //           // if there are any rooks conflicts, toggle it back off
+  //           if (board.hasAnyRooksConflicts()) {
+  //             board.togglePiece(row, col);
+  //           }
+  //           // recurse with the same board -> try adding a rook to the next element on the board
+  //           checkBoard(currBoard, num - 1);
+  //           // recursion has returned, toggle this piece back off (if we turned it on in the first place) and try the next spot
+  //           if (currBoard[row][col] === 1) {
+  //             board.togglePiece(row, col);
+  //           }
+  //           // and increment solutionCount?
+  //           solutionCount++;
+  //         }
+  //       }
   //     }
   //   }
   // }
+
+
+  var checkBoard = function(currBoard, rows) {
+    if (rows < n) {
+      for (var col = 0; col < n; col++) {
+        board.togglePiece(rows, col); // toggle piece on
+        // check for conflict
+        if (!board.hasAnyRooksConflicts()) { // if piece has no conflicts, pass array into function again
+          checkBoard(solution, rows + 1);
+        } else {
+          board.togglePiece(rows, col); // if there is conflict, toggle piece off
+        }
+      }
+      solutionCount++;
+    }
+  };
+
+  checkBoard(solution, rowNum);
 
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;

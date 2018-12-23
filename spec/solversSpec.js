@@ -26,7 +26,6 @@ describe('solvers', function() {
       _.range(1, 9).map(function(n) { // [1, 2, 3, 4, 5, 6, 7, 8].map(FUNCTION BELOW)
         var solutionCount = countNRooksSolutions(n);
         var expectedSolutionCount = [1, 1, 2, 6, 24, 120, 720, 5040, 40320][n];
-
         expect(solutionCount).to.be.equal(expectedSolutionCount);
       });
     });
